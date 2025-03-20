@@ -25,7 +25,7 @@
   onMount(async() => {
     initializeSwiper();
     await fetchCalenderData(currentMonth,currentYear)
-    await generateCalendar(currentYear, currentMonth); 
+     generateCalendar(currentYear, currentMonth); 
   });
  
   const months = [
@@ -51,49 +51,303 @@
 // const availableDates = new Set(["2025-02-25","2025-02-28","2025-02-23", "2025-03-26", "2025-03-25"]); // Available dates
 const availableDates = new Set();  
 
-function generateCalendar(year, month) {
-  let firstDay = new Date(year, month, 1).getDay();
-  let lastDate = new Date(year, month + 1, 0).getDate();
-  let prevMonthLastDate = new Date(year, month, 0).getDate();
-  let today = new Date();
-  today.setHours(0, 0, 0, 0); // Reset time for accurate comparison
-
-  let tempDays = [];
-  let date = 1;
-  let nextMonthDate = 1;
-
-  for (let i = 0; i < 6; i++) {
-    let row = [];
-    for (let j = 0; j < 7; j++) {
-      let fullDate;
-      if (i === 0 && j < (firstDay || 7) - 1) {
-        fullDate = new Date(year, month - 1, prevMonthLastDate - ((firstDay || 7) - 2 - j));
-      } else if (date > lastDate) {
-        fullDate = new Date(year, month + 1, nextMonthDate++);
-      } else {
-        fullDate = new Date(year, month, date++);
+  const fetchCalenderData=async(month,year)=>{
+      try{
+  
+      const res = await GetCalenderData(month,year);
+      const resCurrencies= await GetCurrencies()
+      localCurrency=resCurrencies
+      const resLocalLanguage= await GetLocalLanguage()
+      localLanguages=resLocalLanguage.data
+      if (res.status === 201 || res.status === 200) {
+          //  console.log(res.data.results,"response")
+          //  console.log(localCurrency,"localCurrency")
+          //  console.log(localLanguages,"localLanguages")
+          calenderDetails= [
+          {
+              "isOffline": false,
+              "isOnline": true,
+              "published": false,
+              "isLive": true,
+              "isCancelled": false,
+              "tag": "678de4785f7c6bdabbec796c",
+              "durationHrs": 0,
+              "durationMins": 0,
+              "cancelConfig": {
+                  "isVideo": false
+              },
+              "limits": {
+                  "minStudents": 1,
+                  "maxStudents": 20,
+                  "_id": "678de4785f7c6bdabbec797a",
+                  "lastDate": null,
+                  "lastTime": null,
+                  "closesBeforeHrs": 1,
+                  "actualExpiry": "2025-03-24T17:00:00.000Z"
+              },
+              "pricing": {
+                  "ya": "15",
+                  "nonya": "20"
+              },
+              "timezone": {
+                  "name": "us/hawaii",
+                  "value": {
+                      "offset": -10,
+                      "hem": "n",
+                      "v": "us/hawaii"
+                  }
+              },
+              "actual_time": "2025-03-24T18:00:00.000Z",
+              "actual_teacher": "65a4bf0b53462276ecc5b272",
+              "actual_timezone": "us/hawaii",
+              "teacher": {
+                  "label": "Tedd Surman",
+                  "id": "65a4bf0b53462276ecc5b272",
+                  "level": 1
+              },
+              "language": "6387187118e0793d24118ebf",
+              "currency": "636f78313c1e591f8d8cca8b",
+              "date": "2025-03-24", 
+              "time": "08:00",
+              "created_by": "65a4bf0b53462276ecc5b26f",
+              "students": [
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "67610ba8df88760eaca8712f",
+                      "firstname": "Druv",
+                      "lastname": "Rathi",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "6790721d2a00414538bfd745",
+                      "updatedAt": "2025-01-22T04:20:47.858Z"
+                  },
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "66d16f1828afdd042fdcd65b",
+                      "firstname": "TestM",
+                      "lastname": "DemoM",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "67931cc35f7c6bdabbeca2c6",
+                      "updatedAt": "2025-01-24T04:53:23.347Z"
+                  },
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "65a4bf0b53462276ecc5b272",
+                      "firstname": "Tedd",
+                      "lastname": "Surman",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "679af179375f4b44488a7cae",
+                      "updatedAt": "2025-01-30T03:26:49.121Z"
+                  }
+              ],
+              "id": "678de4785f7c6bdabbec7979"
+          },
+          {
+              "isOffline": false,
+              "isOnline": true,
+              "published": false,
+              "isLive": true,
+              "isCancelled": false,
+              "tag": "678de4785f7c6bdabbec796c",
+              "durationHrs": 0,
+              "durationMins": 0,
+              "cancelConfig": {
+                  "isVideo": false
+              },
+              "limits": {
+                  "minStudents": 1,
+                  "maxStudents": 20,
+                  "_id": "678de4785f7c6bdabbec7974",
+                  "lastDate": null,
+                  "lastTime": null,
+                  "closesBeforeHrs": 1,
+                  "actualExpiry": "2025-03-26T17:00:00.000Z"
+              },
+              "pricing": {
+                  "ya": "15",
+                  "nonya": "20"
+              },
+              "timezone": {
+                  "name": "us/hawaii",
+                  "value": {
+                      "offset": -10,
+                      "hem": "n",
+                      "v": "us/hawaii"
+                  }
+              },
+              "actual_time": "2025-03-26T18:00:00.000Z",
+              "actual_teacher": "65a4bf0b53462276ecc5b272",
+              "actual_timezone": "us/hawaii",
+              "teacher": {
+                  "label": "Tedd Surman",
+                  "id": "65a4bf0b53462276ecc5b272",
+                  "level": 1
+              },
+              "language": "6387187118e0793d24118ebf",
+              "currency": "636f78313c1e591f8d8cca8b",
+              "date": "2025-03-26", 
+              "time": "08:00",
+              "created_by": "65a4bf0b53462276ecc5b26f",
+              "students": [
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "676245ec1987010930c6a8a9",
+                      "firstname": "Nikol",
+                      "lastname": "tesla",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "679b51aeed35a82d80de882c",
+                      "updatedAt": "2025-01-30T10:17:20.029Z"
+                  },
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "65a4bf0b53462276ecc5b272",
+                      "firstname": "Tedd",
+                      "lastname": "Surman",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "67a025af8aadda652744053f",
+                      "updatedAt": "2025-02-03T02:10:55.534Z"
+                  }
+              ],
+              "id": "678de4785f7c6bdabbec7973"
+          },
+          {
+              "isOffline": false,
+              "isOnline": true,
+              "published": false,
+              "isLive": true,
+              "isCancelled": false,
+              "tag": "678de4785f7c6bdabbec796c",
+              "durationHrs": 0,
+              "durationMins": 0,
+              "cancelConfig": {
+                  "isVideo": false
+              },
+              "limits": {
+                  "minStudents": 1,
+                  "maxStudents": 20,
+                  "_id": "678de4785f7c6bdabbec7974",
+                  "lastDate": null,
+                  "lastTime": null,
+                  "closesBeforeHrs": 1,
+                  "actualExpiry": "2025-03-26T17:00:00.000Z"
+              },
+              "pricing": {
+                  "ya": "15",
+                  "nonya": "20"
+              },
+              "timezone": {
+                  "name": "us/hawaii",
+                  "value": {
+                      "offset": -10,
+                      "hem": "n",
+                      "v": "us/hawaii"
+                  }
+              },
+              "actual_time": "2025-03-26T18:00:00.000Z",
+              "actual_teacher": "65a4bf0b53462276ecc5b272",
+              "actual_timezone": "us/hawaii",
+              "teacher": {
+                  "label": "Tedd Surman",
+                  "id": "65a4bf0b53462276ecc5b272",
+                  "level": 1
+              },
+              "language": "6387187118e0793d24118ebf",
+              "currency": "636f78313c1e591f8d8cca8b",
+              "date": "2025-03-26", 
+              "time": "08:00",
+              "created_by": "65a4bf0b53462276ecc5b26f",
+              "students": [
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "676245ec1987010930c6a8a9",
+                      "firstname": "Nikol",
+                      "lastname": "tesla",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "679b51aeed35a82d80de882c",
+                      "updatedAt": "2025-01-30T10:17:20.029Z"
+                  },
+                  {
+                      "due": 20,
+                      "paid": 0,
+                      "currency": "USD",
+                      "profile": "65a4bf0b53462276ecc5b272",
+                      "firstname": "Tedd",
+                      "lastname": "Surman",
+                      "actual_currency": "636f78313c1e591f8d8cca8b",
+                      "order": "67a025af8aadda652744053f",
+                      "updatedAt": "2025-02-03T02:10:55.534Z"
+                  }
+              ],
+              "id": "678de4785f7c6bdabbec7977"
+          }]
+          // Extract available dates
+        availableDates.clear();
+        calenderDetails.forEach((item) => {
+          if (item.date) {
+            availableDates.add(item.date);
+          }
+        });
+        // console.log(availableDates,"availableDates")
+        }
+      }catch(error){
+        console.log("Error fetching calendar data:", error);
       }
-
-      let formattedDate = `${fullDate.getFullYear()}-${String(fullDate.getMonth() + 1).padStart(2, "0")}-${String(fullDate.getDate()).padStart(2, "0")}`;
-
-      let isPast = fullDate < today;
-      let isAvailable = availableDates.has(formattedDate);
-      let isFuture = fullDate >= today && !isAvailable;
-      let isSelected = formattedDate === selectedDate;
-      row.push({
-        date: fullDate,
-        isAvailable,
-        isPast,
-        isFuture,
-        isSelected,
-      });
     }
-    tempDays.push(row);
-  }
-  console.log(tempDays,"tempDays")
 
-  days = tempDays;
-}
+  function generateCalendar(year, month) {
+    let firstDay = new Date(year, month, 1).getDay();
+    let lastDate = new Date(year, month + 1, 0).getDate();
+    let prevMonthLastDate = new Date(year, month, 0).getDate();
+    let today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time for accurate comparison
+
+    let tempDays = [];
+    let date = 1;
+    let nextMonthDate = 1;
+
+    for (let i = 0; i < 6; i++) {
+      let row = [];
+      for (let j = 0; j < 7; j++) {
+        let fullDate;
+        if (i === 0 && j < (firstDay || 7) - 1) {
+          fullDate = new Date(year, month - 1, prevMonthLastDate - ((firstDay || 7) - 2 - j));
+        } else if (date > lastDate) {
+          fullDate = new Date(year, month + 1, nextMonthDate++);
+        } else {
+          fullDate = new Date(year, month, date++);
+        }
+
+        let formattedDate = `${fullDate.getFullYear()}-${String(fullDate.getMonth() + 1).padStart(2, "0")}-${String(fullDate.getDate()).padStart(2, "0")}`;
+
+        let isPast = fullDate < today;
+        let isAvailable = availableDates.has(formattedDate);
+        let isFuture = fullDate >= today && !isAvailable;
+        let isSelected = formattedDate === selectedDate;
+        row.push({
+          date: fullDate,
+          isAvailable,
+          isPast,
+          isFuture,
+          isSelected,
+        });
+      }
+      tempDays.push(row);
+    }
+    console.log(tempDays,"tempDays")
+
+    days = tempDays;
+  }
 
 
 
@@ -226,259 +480,7 @@ function generateCalendar(year, month) {
  
 
 
-  const fetchCalenderData=async(month,year)=>{
-    try{
- 
-    const res = await GetCalenderData(month,year);
-    const resCurrencies= await GetCurrencies()
-    localCurrency=resCurrencies
-    const resLocalLanguage= await GetLocalLanguage()
-    localLanguages=resLocalLanguage.data
-    if (res.status === 201 || res.status === 200) {
-        //  console.log(res.data.results,"response")
-        //  console.log(localCurrency,"localCurrency")
-        //  console.log(localLanguages,"localLanguages")
-         calenderDetails= [
-        {
-            "isOffline": false,
-            "isOnline": true,
-            "published": false,
-            "isLive": true,
-            "isCancelled": false,
-            "tag": "678de4785f7c6bdabbec796c",
-            "durationHrs": 0,
-            "durationMins": 0,
-            "cancelConfig": {
-                "isVideo": false
-            },
-            "limits": {
-                "minStudents": 1,
-                "maxStudents": 20,
-                "_id": "678de4785f7c6bdabbec797a",
-                "lastDate": null,
-                "lastTime": null,
-                "closesBeforeHrs": 1,
-                "actualExpiry": "2025-03-24T17:00:00.000Z"
-            },
-            "pricing": {
-                "ya": "15",
-                "nonya": "20"
-            },
-            "timezone": {
-                "name": "us/hawaii",
-                "value": {
-                    "offset": -10,
-                    "hem": "n",
-                    "v": "us/hawaii"
-                }
-            },
-            "actual_time": "2025-03-24T18:00:00.000Z",
-            "actual_teacher": "65a4bf0b53462276ecc5b272",
-            "actual_timezone": "us/hawaii",
-            "teacher": {
-                "label": "Tedd Surman",
-                "id": "65a4bf0b53462276ecc5b272",
-                "level": 1
-            },
-            "language": "6387187118e0793d24118ebf",
-            "currency": "636f78313c1e591f8d8cca8b",
-            "date": "2025-03-24", 
-            "time": "08:00",
-            "created_by": "65a4bf0b53462276ecc5b26f",
-            "students": [
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "67610ba8df88760eaca8712f",
-                    "firstname": "Druv",
-                    "lastname": "Rathi",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "6790721d2a00414538bfd745",
-                    "updatedAt": "2025-01-22T04:20:47.858Z"
-                },
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "66d16f1828afdd042fdcd65b",
-                    "firstname": "TestM",
-                    "lastname": "DemoM",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "67931cc35f7c6bdabbeca2c6",
-                    "updatedAt": "2025-01-24T04:53:23.347Z"
-                },
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "65a4bf0b53462276ecc5b272",
-                    "firstname": "Tedd",
-                    "lastname": "Surman",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "679af179375f4b44488a7cae",
-                    "updatedAt": "2025-01-30T03:26:49.121Z"
-                }
-            ],
-            "id": "678de4785f7c6bdabbec7979"
-        },
-        {
-            "isOffline": false,
-            "isOnline": true,
-            "published": false,
-            "isLive": true,
-            "isCancelled": false,
-            "tag": "678de4785f7c6bdabbec796c",
-            "durationHrs": 0,
-            "durationMins": 0,
-            "cancelConfig": {
-                "isVideo": false
-            },
-            "limits": {
-                "minStudents": 1,
-                "maxStudents": 20,
-                "_id": "678de4785f7c6bdabbec7974",
-                "lastDate": null,
-                "lastTime": null,
-                "closesBeforeHrs": 1,
-                "actualExpiry": "2025-03-26T17:00:00.000Z"
-            },
-            "pricing": {
-                "ya": "15",
-                "nonya": "20"
-            },
-            "timezone": {
-                "name": "us/hawaii",
-                "value": {
-                    "offset": -10,
-                    "hem": "n",
-                    "v": "us/hawaii"
-                }
-            },
-            "actual_time": "2025-03-26T18:00:00.000Z",
-            "actual_teacher": "65a4bf0b53462276ecc5b272",
-            "actual_timezone": "us/hawaii",
-            "teacher": {
-                "label": "Tedd Surman",
-                "id": "65a4bf0b53462276ecc5b272",
-                "level": 1
-            },
-            "language": "6387187118e0793d24118ebf",
-            "currency": "636f78313c1e591f8d8cca8b",
-            "date": "2025-03-26", 
-            "time": "08:00",
-            "created_by": "65a4bf0b53462276ecc5b26f",
-            "students": [
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "676245ec1987010930c6a8a9",
-                    "firstname": "Nikol",
-                    "lastname": "tesla",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "679b51aeed35a82d80de882c",
-                    "updatedAt": "2025-01-30T10:17:20.029Z"
-                },
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "65a4bf0b53462276ecc5b272",
-                    "firstname": "Tedd",
-                    "lastname": "Surman",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "67a025af8aadda652744053f",
-                    "updatedAt": "2025-02-03T02:10:55.534Z"
-                }
-            ],
-            "id": "678de4785f7c6bdabbec7973"
-        },
-        {
-            "isOffline": false,
-            "isOnline": true,
-            "published": false,
-            "isLive": true,
-            "isCancelled": false,
-            "tag": "678de4785f7c6bdabbec796c",
-            "durationHrs": 0,
-            "durationMins": 0,
-            "cancelConfig": {
-                "isVideo": false
-            },
-            "limits": {
-                "minStudents": 1,
-                "maxStudents": 20,
-                "_id": "678de4785f7c6bdabbec7974",
-                "lastDate": null,
-                "lastTime": null,
-                "closesBeforeHrs": 1,
-                "actualExpiry": "2025-03-26T17:00:00.000Z"
-            },
-            "pricing": {
-                "ya": "15",
-                "nonya": "20"
-            },
-            "timezone": {
-                "name": "us/hawaii",
-                "value": {
-                    "offset": -10,
-                    "hem": "n",
-                    "v": "us/hawaii"
-                }
-            },
-            "actual_time": "2025-03-26T18:00:00.000Z",
-            "actual_teacher": "65a4bf0b53462276ecc5b272",
-            "actual_timezone": "us/hawaii",
-            "teacher": {
-                "label": "Tedd Surman",
-                "id": "65a4bf0b53462276ecc5b272",
-                "level": 1
-            },
-            "language": "6387187118e0793d24118ebf",
-            "currency": "636f78313c1e591f8d8cca8b",
-            "date": "2025-03-26", 
-            "time": "08:00",
-            "created_by": "65a4bf0b53462276ecc5b26f",
-            "students": [
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "676245ec1987010930c6a8a9",
-                    "firstname": "Nikol",
-                    "lastname": "tesla",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "679b51aeed35a82d80de882c",
-                    "updatedAt": "2025-01-30T10:17:20.029Z"
-                },
-                {
-                    "due": 20,
-                    "paid": 0,
-                    "currency": "USD",
-                    "profile": "65a4bf0b53462276ecc5b272",
-                    "firstname": "Tedd",
-                    "lastname": "Surman",
-                    "actual_currency": "636f78313c1e591f8d8cca8b",
-                    "order": "67a025af8aadda652744053f",
-                    "updatedAt": "2025-02-03T02:10:55.534Z"
-                }
-            ],
-            "id": "678de4785f7c6bdabbec7977"
-        }]
-        // Extract available dates
-      availableDates.clear();
-      calenderDetails.forEach((item) => {
-        if (item.date) {
-          availableDates.add(item.date);
-        }
-      });
-      // console.log(availableDates,"availableDates")
-      }
-    }catch(error){
-      console.log("Error fetching calendar data:", error);
-    }
-  }
+
 
   const formatDate = (date) => {
     const Dates = new Date(date);
