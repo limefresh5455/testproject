@@ -5,6 +5,11 @@ const config = {
   kit: {
     adapter: adapter(),
   },
+  vite: {
+			ssr: {
+				noExternal: ['swiper'] 
+			}
+		}
 };
 
 export default config;
