@@ -23,6 +23,7 @@
 		"dayjs": "^1.11.13",
 		"spacetime": "^7.8.0",
 		"svelte-select": "^5.8.3",
+		"swiper": "^11.2.6",
 		"timezone-soft": "^1.5.2"
 	}
 }

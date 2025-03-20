@@ -28,9 +28,9 @@
   //    generateCalendar(currentYear, currentMonth); 
   // });
   
-  onMount(() => {
+  onMount(async() => {
     initializeSwiper();
-  setTimeout(async () => {
+  // setTimeout(async () => {
     try {
       console.log("Component Mounted after timeout");
       await fetchCalenderData(currentMonth, currentYear);
@@ -38,7 +38,7 @@
     } catch (error) {
       console.error("Error in onMount:", error);
     }
-  }, 1000); // 100ms का छोटा डिले
+  // }, 1000); 
 });
 
 
@@ -384,7 +384,8 @@ const availableDates = new Set();
     if (swiperInstance) swiperInstance.update();
   }); 
 
-  function initializeSwiper() {
+    async function initializeSwiper() {
+    const { default: Swiper } = await import('swiper');
     swiperInstance = new Swiper(".home-showcaseSlider", {
       speed: 3000,
       slidesPerView: 1,
