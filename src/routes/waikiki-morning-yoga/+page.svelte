@@ -6,7 +6,7 @@
   import WmyRegisterAndLogin from "$lib/WaikikiMorningYoga/WMYRegisterAndLogin.svelte";
   import YogaClassSingle from "$lib/WaikikiMorningYoga/YogaClassSingle.svelte";
   import YogaClassSingleMultiple from "$lib/WaikikiMorningYoga/YogaClassSingleMultiple.svelte";
-  import { onMount, afterUpdate } from "svelte";
+  import { onMount, afterUpdate, tick } from "svelte";
   let swiperInstance;
   let newsletterButtonColor = "green-btn";
 
@@ -27,19 +27,17 @@
   //   await fetchCalenderData(currentMonth,currentYear)
   //    generateCalendar(currentYear, currentMonth); 
   // });
-  onMount(() => {
-  setTimeout(async () => {
-    try {
-      console.log("Component Mounted after timeout");
-      initializeSwiper();
-      await fetchCalenderData(currentMonth, currentYear);
-      generateCalendar(currentYear, currentMonth);
-    } catch (error) {
-      console.error("Error in onMount:", error);
-    }
-  }, 1000); // 100ms का छोटा डिले
+  onMount(async () => {
+  await tick(); 
+  try {
+    console.log("Component Mounted after tick");
+    initializeSwiper();
+    await fetchCalenderData(currentMonth, currentYear);
+    generateCalendar(currentYear, currentMonth);
+  } catch (error) {
+    console.error("Error in onMount:", error);
+  }
 });
-
 
  
   const months = [
