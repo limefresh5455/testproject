@@ -53,7 +53,7 @@ const availableDates = new Set();
 
   const fetchCalenderData=async(month,year)=>{
       try{
-  
+        console.log("fetchCalenderData ")
       const res = await GetCalenderData(month,year);
       const resCurrencies= await GetCurrencies()
       localCurrency=resCurrencies
@@ -306,6 +306,7 @@ const availableDates = new Set();
     }
 
   function generateCalendar(year, month) {
+    console.log("generateCalendar")
     let firstDay = new Date(year, month, 1).getDay();
     let lastDate = new Date(year, month + 1, 0).getDate();
     let prevMonthLastDate = new Date(year, month, 0).getDate();
