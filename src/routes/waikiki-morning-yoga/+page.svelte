@@ -25,7 +25,7 @@
   onMount(async() => {
     initializeSwiper();
     await fetchCalenderData(currentMonth,currentYear)
-    generateCalendar(currentYear, currentMonth);
+    await generateCalendar(currentYear, currentMonth); 
   });
  
   const months = [
@@ -46,8 +46,8 @@
   const daysOfWeek = ["月", "火", "水", "木", "金", "土", "日"];
 
   let days = [];
-$: console.log(days, "Updated days");
- 
+
+  $:console.log(days,"days")
 // const availableDates = new Set(["2025-02-25","2025-02-28","2025-02-23", "2025-03-26", "2025-03-25"]); // Available dates
 const availableDates = new Set();  
 
@@ -92,7 +92,7 @@ function generateCalendar(year, month) {
   }
   console.log(tempDays,"tempDays")
 
-  days = [...tempDays]; 
+  days = tempDays;
 }
 
 
