@@ -25,7 +25,7 @@
   onMount(async() => {
     initializeSwiper();
     await fetchCalenderData(currentMonth,currentYear)
-    await generateCalendar(currentYear, currentMonth); 
+    generateCalendar(currentYear, currentMonth); 
   });
  
   const months = [
