@@ -473,6 +473,7 @@ function generateCalendar(year, month) {
           availableDates.add(item.date);
         }
       });
+      generateCalendar(year, month);
       // console.log(availableDates,"availableDates")
       }
     }catch(error){
