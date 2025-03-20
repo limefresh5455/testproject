@@ -22,11 +22,22 @@
   let profileData = {};
 
 
-  onMount(async() => {
+  // onMount(async() => {
+  //   initializeSwiper();
+  //   await fetchCalenderData(currentMonth,currentYear)
+  //    generateCalendar(currentYear, currentMonth); 
+  // });
+  onMount(async () => {
+  try {
+    console.log("Component Mounted");
     initializeSwiper();
-    await fetchCalenderData(currentMonth,currentYear)
-     generateCalendar(currentYear, currentMonth); 
-  });
+    await fetchCalenderData(currentMonth, currentYear);
+    generateCalendar(currentYear, currentMonth);
+  } catch (error) {
+    console.error("Error in onMount:", error);
+  }
+});
+
  
   const months = [
     "1月",
