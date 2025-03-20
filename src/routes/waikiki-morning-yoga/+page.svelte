@@ -27,16 +27,19 @@
   //   await fetchCalenderData(currentMonth,currentYear)
   //    generateCalendar(currentYear, currentMonth); 
   // });
-  onMount(async () => {
-  try {
-    console.log("Component Mounted");
-    initializeSwiper();
-    await fetchCalenderData(currentMonth, currentYear);
-    generateCalendar(currentYear, currentMonth);
-  } catch (error) {
-    console.error("Error in onMount:", error);
-  }
+  onMount(() => {
+  setTimeout(async () => {
+    try {
+      console.log("Component Mounted after timeout");
+      initializeSwiper();
+      await fetchCalenderData(currentMonth, currentYear);
+      generateCalendar(currentYear, currentMonth);
+    } catch (error) {
+      console.error("Error in onMount:", error);
+    }
+  }, 1000); // 100ms का छोटा डिले
 });
+
 
  
   const months = [
