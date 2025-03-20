@@ -24,8 +24,8 @@
 
   onMount(async() => {
     initializeSwiper();
-   // await fetchCalenderData(currentMonth,currentYear)
-    generateCalendar(currentYear, currentMonth); 
+    generateCalendar(currentYear, currentMonth);
+    await fetchCalenderData(currentMonth,currentYear)
   });
  
   const months = [
@@ -94,7 +94,6 @@ function generateCalendar(year, month) {
 
   days = tempDays;
 }
-
 
 
   function changeMonth(event) {
