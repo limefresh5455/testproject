@@ -38,7 +38,7 @@
     } catch (error) {
       console.error("Error in onMount:", error);
     }
-  }, 500); // 100ms का छोटा डिले
+  }, 1000); // 100ms का छोटा डिले
 });
 
 
